@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Phinx\Seed\AbstractSeed;
+use Symfony\Component\Uid\Uuid;
 
 class FolderSeeder extends AbstractSeed
 {
@@ -26,17 +27,20 @@ class FolderSeeder extends AbstractSeed
     {
         $data = [
             [
-                'id_user'	=> 2,
+                'uuid'          =>  Uuid::v4(),
+                'id_user'	    =>  2,
                 'title'         => 'folder 2.1',
                 'description'   => '1st folder of user 2',                
             ],
             [
-                'id_user'	=> 2,
+                'uuid'          =>  Uuid::v4(),
+                'id_user'	    =>  2,
                 'title'			=> 'folder 2.2',
                 'description'	=> '2nd folder of user 2',                
             ],
             [
-                'id_user'	=> 3,
+                'uuid'          =>  Uuid::v4(),
+                'id_user'	    =>  3,
                 'title'			=> 'folder 3.1',
                 'description'	=> '1st folder of user 3',                
             ],

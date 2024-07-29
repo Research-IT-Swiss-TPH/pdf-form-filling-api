@@ -1,12 +1,12 @@
-@user_id = 8
+@user_id = 1
 
 ### 
 PUT https://localhost/api/v1/users/{{user_id}} HTTP/1.1
 content-type: application/json
 accept: application/json
 
-{
-    "email": "barxupdated@mail.ch",
+{    
+    "email": "{{Math.floor(+new Date/1e3)}}@mail.ch",
     "firstname": "BillX",
     "lastname": "BarX",
     "password": "passwordX",

@@ -8,6 +8,7 @@ namespace App\Domain\User\Data;
 final class UserFinderItem
 {
     public ?int $id = null;
+    // public ?string $uuid = null; 
     public ?string $email = null;
     public ?string $firstname = null;
     public ?string $lastname = null;

@@ -25,7 +25,7 @@ final class UserDeleterAction
         array $args
     ): ResponseInterface {
         // Fetch parameters from the request
-        $userId = (int)$args['user_id'];
+        $userId = (string) $args['user_id'];
 
         // Invoke the domain (service class)
         $this->userDeleter->deleteUser($userId);

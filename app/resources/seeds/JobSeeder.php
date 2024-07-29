@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Phinx\Seed\AbstractSeed;
+use Symfony\Component\Uid\Uuid;
 
 class JobSeeder extends AbstractSeed
 {
@@ -26,22 +27,25 @@ class JobSeeder extends AbstractSeed
     {
         $data = [
             [
-                'id_document'	=> 1,
-                'size'			=> 11,
+                'uuid'          =>  Uuid::v4(),
+                'id_document'	=>  1,
+                'size'			=>  11,
                 'state'         =>  'initial',                
             ],
             [
-                'id_document'	=> 1,
-                'size'			=> 22,
+                'uuid'          =>  Uuid::v4(),
+                'id_document'	=>  1,
+                'size'			=>  22,
                 'state'	        => 'running',                
-                'started_at'    => date('Y-m-d H:i:s'),                
+                'started_at'    =>  date('Y-m-d H:i:s'),                
             ],
             [
-                'id_document'	=> 2,
-                'size'			=> 33,
+                'uuid'          =>  Uuid::v4(),
+                'id_document'	=>  2,
+                'size'			=>  33,
                 'state'         => 'finished',                
-                'started_at'    => date('Y-m-d H:i:s'),                
-                'finished_at'   => date('Y-m-d H:i:s'),                
+                'started_at'    =>  date('Y-m-d H:i:s'),
+                'finished_at'   =>  date('Y-m-d H:i:s'),
             ],
         ];
 

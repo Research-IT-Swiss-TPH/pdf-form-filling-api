@@ -24,10 +24,13 @@ final class UserUpdater
         $this->logger = $logger;
     }
 
-    public function updateUser(int $userId, array $data): void
+    public function updateUser(string $userId, array $data): void
     {
         // Input validation
         $this->validateUserUpdate($userId, $data);
+
+        // // Map UUID to ID
+        // $userId = $this->repository->mapUuidToId($userUuid);
 
         // Update the row
         $this->repository->updateUser($userId, $data);
@@ -36,7 +39,7 @@ final class UserUpdater
         $this->logger->info(sprintf('User updated successfully: %s', $userId));
     }
 
-    public function validateUserUpdate(int $userId, array $data): void
+    public function validateUserUpdate(string $userId, array $data): void
     {
         if (!$this->repository->existsUserId($userId)) {
             throw new DomainException(sprintf('User not found: %s', $userId));

@@ -32,6 +32,7 @@ final class UserFinder
         foreach ($userRows as $userRow) {
             $user = new UserFinderItem();
             $user->id = $userRow['id'];
+            $user->uuid = $userRow['uuid'];
             $user->email = $userRow['email'];
             $user->firstname = $userRow['firstname'];
             $user->lastname = $userRow['lastname'];
