@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Phinx\Seed\AbstractSeed;
+use Symfony\Component\Uid\Uuid;
+
 
 class DocumentSeeder extends AbstractSeed
 {
@@ -26,20 +28,23 @@ class DocumentSeeder extends AbstractSeed
     {
         $data = [
             [
-                'id_folder'		=> 1,
-                'title'				=> 'document 1.1',
+                'uuid'          =>  Uuid::v4(),
+                'id_folder'		=>  1,
+                'title'			=> 'document 1.1',
                 'description'	=> '1st document in folder 1',                
                 'language'		=> 'english',                
             ],
             [
-                'id_folder'		=> 1,
-                'title'				=> 'document 1.2',
+                'uuid'          =>  Uuid::v4(),
+                'id_folder'		=>  1,
+                'title'		    => 'document 1.2',
                 'description'	=> '2nd document in folder 1',                
                 'language'		=> 'german',                
             ],
             [
-                'id_folder'		=> 2,
-                'title'				=> 'document 2.1',
+                'uuid'          =>  Uuid::v4(),
+                'id_folder'		=>  2,
+                'title'			=> 'document 2.1',
                 'description'	=> '1st document in folder 2',                
                 'language'		=> 'french',                
             ],

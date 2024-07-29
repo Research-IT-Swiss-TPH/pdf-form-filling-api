@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Phinx\Seed\AbstractSeed;
+use Symfony\Component\Uid\Uuid;
 
 class OutputSeeder extends AbstractSeed
 {
@@ -27,9 +28,11 @@ class OutputSeeder extends AbstractSeed
 
         $data = [
             [
+                'uuid'      =>  Uuid::v4(),
                 'id_job'	=> 1,
             ],
             [
+                'uuid'      =>  Uuid::v4(),
                 'id_job'	=> 2
             ],
         ];

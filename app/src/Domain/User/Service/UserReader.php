@@ -4,6 +4,9 @@ namespace App\Domain\User\Service;
 
 use App\Domain\User\Data\UserReaderResult;
 use App\Domain\User\Repository\UserRepository;
+
+use Symfony\Component\Uid\Uuid;
+
 use DomainException;
 
 /**
@@ -26,14 +29,17 @@ final class UserReader
     /**
      * Read a user.
      *
-     * @param int $userId The user id
+     * @param string $userUud The user uuid
      *
      * @return UserReaderResult The result
      */
-    public function getUser(int $userId): UserReaderResult
+    public function getUser(string $userId): UserReaderResult
     {
         // Input validation
         $this->validateUserRead($userId);
+
+        // // Map UUID to ID
+        // $userId = $this->repository->mapUuidToId($userUuid);
 
         // Fetch data from the database
         $userRow = $this->repository->getUserById($userId);
@@ -44,6 +50,7 @@ final class UserReader
         // Create domain result
         $result = new UserReaderResult();
         $result->id = $userRow['id'];
+        // $result->uuid = $userRow['uuid'];
         $result->email = $userRow['email'];
         $result->firstname = $userRow['firstname'];
         $result->lastname = $userRow['lastname'];
@@ -56,7 +63,12 @@ final class UserReader
         return $result;
     }
 
-    public function validateUserRead(int $userId) {
+    public function validateUserRead(string $userId) {
+
+        // if( !Uuid::isValid($userUuid)) {
+        //     throw new DomainException(sprintf('UUID not valid: %s', $userUuid));
+        // }
+
         if (!$this->repository->existsUserId($userId)) {
             throw new DomainException(sprintf('User not found: %s', $userId));
         }

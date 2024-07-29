@@ -26,7 +26,7 @@ final class UserReaderAction
         array $args
     ): ResponseInterface {
         // Fetch parameters from the request
-        $userId = (int)$args['user_id'];
+        $userId = (string) $args['user_id'];
 
         // Invoke the domain and get the result
         $user = $this->userReader->getUser($userId);
@@ -39,6 +39,7 @@ final class UserReaderAction
     {
         return [
 					'id' => $user->id,
+                    // 'uuid' => $user->uuid,
 					'email' => $user->email,
 					'firstname' => $user->firstname,
 					'lastname' => $user->lastname,

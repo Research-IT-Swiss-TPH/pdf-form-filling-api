@@ -26,16 +26,16 @@ final class UserCreator
 
     public function createUser(array $data): int
     {
-        // // Input validation
+        // Input validation
         $this->userValidator->validateUser($data);
 
         // Insert user and get new user ID
-        $userId = $this->repository->insertUser($data);
+        $userUuid = $this->repository->insertUser($data);
 
         // // Logging
-        $this->logger->info(sprintf('User created successfully: %s', $userId));
+        $this->logger->info(sprintf('User created successfully: %s', $userUuid));
 
-        return $userId;
+        return $userUuid;
     }
 
 }

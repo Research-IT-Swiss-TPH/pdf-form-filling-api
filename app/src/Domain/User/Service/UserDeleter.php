@@ -19,9 +19,11 @@ final class UserDeleter
         $this->logger = $logger;
     }
 
-    public function deleteUser($userId): void
+    public function deleteUser(string $userId): void
     {
         $this->validateUserDelete($userId);
+
+        // $userId = $this->repository->mapUuidToId($userUuid);
 
         $this->repository->deleteUserById($userId);
 
@@ -29,7 +31,7 @@ final class UserDeleter
 
     }
 
-    public function validateUserDelete(int $userId): void 
+    public function validateUserDelete(string $userId): void 
     {
         if(!$this->repository->existsUserId($userId)) {
             throw new DomainException(sprintf('User not found: %s', $userId));

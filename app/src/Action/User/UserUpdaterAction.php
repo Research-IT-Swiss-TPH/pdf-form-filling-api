@@ -25,8 +25,8 @@ final class UserUpdaterAction
         array $args
     ): ResponseInterface {
         // Extract the form data from the request body
-        $userId = (int)$args['user_id'];
-        $data = (array)$request->getParsedBody();
+        $userId = (string) $args['user_id'];
+        $data = (array) $request->getParsedBody();
 
         // Invoke the Domain with inputs and retain the result
         $this->userUpdater->updateUser($userId, $data);

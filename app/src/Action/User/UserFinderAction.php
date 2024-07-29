@@ -38,6 +38,7 @@ final class UserFinderAction
         foreach ($result->users as $user) {
             $users[] = [
                 'id' => $user->id,
+                'uuid' => $user->uuid,
                 'email' => $user->email,
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
