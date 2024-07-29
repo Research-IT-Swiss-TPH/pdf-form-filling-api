@@ -625,8 +625,7 @@ cli_container_start_command() {
 # :command.function
 cli_container_stop_command() {
   # src/container_stop_command.sh
-  docker compose -f $APP_ROOT/compose.yml -f $APP_ROOT/compose.$APP_ENV.yml down -d
-
+  docker compose -f $APP_ROOT/compose.yml -f $APP_ROOT/compose.$APP_ENV.yml down
 }
 
 # :command.function
