@@ -21,11 +21,11 @@ final class InitialMigration extends AbstractMigration
     public function change(): void
     {
         //  We need to enable Postgres UUID extension, so that we can call uuid_generate_v4() as default for 'uuid' columns
-        $this->execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        //$this->execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
         $users = $this->table('users');
         $users
-        // ->addColumn('uuid', 'uuid')
+        ->addColumn('uuid', 'string')
         ->addColumn('email', 'string', ['limit' => 255, 'null' => false])
         ->addColumn('firstname', 'string', ['limit' => 255])
         ->addColumn('lastname', 'string', ['limit' => 255])
@@ -39,7 +39,7 @@ final class InitialMigration extends AbstractMigration
         $folders = $this->table('folders');
         $folders
         ->addColumn('id_user', 'integer')
-        ->addColumn('uuid', 'uuid')
+        ->addColumn('uuid', 'string')
         ->addColumn('title', 'string', ['limit' => 100])
         ->addColumn('description', 'string', ['limit' => 500])
         ->addTimestamps()
@@ -49,39 +49,33 @@ final class InitialMigration extends AbstractMigration
         $documents = $this->table('documents');
         $documents
         ->addColumn('id_folder', 'integer')
-        ->addColumn('uuid', 'uuid')
-        //->addColumn('uuid', 'uuid', ['null' => false, 'default' => Literal::from('uuid_generate_v4()')])
+        ->addColumn('uuid', 'string')
         ->addColumn('title', 'string', ['limit' => 100])
         ->addColumn('description', 'string', ['limit' => 500])
         ->addColumn('language', 'string', ['limit' => 64])
         ->addColumn('field_list', 'json', ['null' => true])
         ->addTimestamps()
-        //->addIndex(['uuid'], ['unique' => true])
         ->addForeignKey('id_folder', 'folders', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
         ->create();
 
         $jobs = $this->table('jobs');
         $jobs
         ->addColumn('id_document', 'integer')
-        ->addColumn('uuid', 'uuid')
-        //->addColumn('uuid', 'uuid', ['null' => false, 'default' => Literal::from('uuid_generate_v4()')])
+        ->addColumn('uuid', 'string')
         ->addColumn('size', 'integer')
         ->addColumn('state', 'string', ['limit' => 32])
         ->addColumn('started_at', 'timestamp')
         ->addColumn('finished_at', 'timestamp')
-        ->addTimestamps(null, false) # created_at only
-        //->addIndex(['uuid'], ['unique' => true])
+        ->addTimestamps()
         ->addForeignKey('id_document', 'documents', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
         ->create();
 
         $outputs = $this->table('outputs');
         $outputs
         ->addColumn('id_job', 'integer')
-        ->addColumn('uuid', 'uuid')
-        //->addColumn('uuid', 'uuid', ['null' => false, 'default' => Literal::from('uuid_generate_v4()')])
+        ->addColumn('uuid', 'string')
         ->addColumn('deleted_at', 'timestamp')
-        ->addTimestamps(null, false) # created_at only
-        //->addIndex(['uuid'], ['unique' => true])
+        ->addTimestamps()
         ->addForeignKey('id_job', 'jobs', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
         ->create();
     }
