@@ -20,7 +20,7 @@ final class UserFinderRepository
         $query->select(
             [
                 'id',
-                // 'uuid',
+                'uuid',
                 'email',
                 'firstname',
                 'lastname',

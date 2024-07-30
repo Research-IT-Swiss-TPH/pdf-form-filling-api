@@ -92,9 +92,9 @@ return function (App $app) {
                 $app->group('/users', function (RouteCollectorProxy $app) {
                     $app->get('', User\UserFinderAction::class);
                     $app->post('', User\UserCreatorAction::class);
-                    $app->get('/{user_id}', User\UserReaderAction::class);
-                    $app->put('/{user_id}', User\UserUpdaterAction::class);
-                    $app->delete('/{user_id}', User\UserDeleterAction::class);
+                    $app->get('/{user_uuid}', User\UserReaderAction::class);
+                    $app->put('/{user_uuid}', User\UserUpdaterAction::class);
+                    $app->delete('/{user_uuid}', User\UserDeleterAction::class);
                 });
             
                 $app->group('/folders', function (RouteCollectorProxy $app) {

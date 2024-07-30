@@ -5,6 +5,7 @@ namespace App\Domain\User\Service;
 use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\Service\UserValidator;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class UserCreator
 {
@@ -28,6 +29,9 @@ final class UserCreator
     {
         // Input validation
         $this->userValidator->validateUser($data);
+
+        // Attach new UUID to $data
+        $user["uuid"] = Uuid::v4();
 
         // Insert user and get new user ID
         $userUuid = $this->repository->insertUser($data);
