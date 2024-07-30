@@ -4,7 +4,6 @@ namespace App\Domain\User\Repository;
 
 use App\Factory\QueryFactory;
 use App\Support\Helper\DateTimeHelper;
-use Symfony\Component\Uid\Uuid;
 
 use DomainException;
 
@@ -21,31 +20,28 @@ final class UserRepository
     }
 
     public function insertUser(array $user): int
-    {        
-        // Create UUID and attach to $data
-        // $user["uuid"] = Uuid::v4();
-
+    {
         return (int)$this->queryFactory
             ->newInsert('users', $this->toRow($user))
             ->execute()
             ->lastInsertId();
     }
 
-    // public function mapUuidToId(string $uuid): int {
-    //     $query = $this->queryFactory->newSelect('users');
-    //     $query->select([
-    //         'id',
-    //         'uuid'
-    //     ]);
-    //     $query->where(['uuid' => $uuid]);
-    //     $row = $query->execute()->fetch('assoc');
+    public function mapUuidToId(string $uuid): int {
+        $query = $this->queryFactory->newSelect('users');
+        $query->select([
+            'id',
+            'uuid'
+        ]);
+        $query->where(['uuid' => $uuid]);
+        $row = $query->execute()->fetch('assoc');
 
-    //     if (!$row) {
-    //         throw new DomainException(sprintf('User not found: %s', $uuid));
-    //     }
+        if (!$row) {
+            throw new DomainException(sprintf('No User found for uuid: %s', $uuid));
+        }
 
-    //     return $row['id'];
-    // }
+        return $row['id'];
+    }
 
     public function getUserById(int $userId): array
     {
@@ -53,7 +49,7 @@ final class UserRepository
         $query->select(
             [
                 'id',
-                // 'uuid',
+                'uuid',
                 'email',
                 'firstname',
                 'lastname',
@@ -78,7 +74,6 @@ final class UserRepository
 
     public function updateUser(int $userId, array $user): void
     {
-        //$user['uuid'] = $userUuid;
         $user['updated_at'] = DateTimeHelper::getDate();
 		$row = $this->toRow($user);
 
@@ -95,15 +90,6 @@ final class UserRepository
         return (bool) $query->execute()->fetch('assoc');
     }
 
-    // public function existsUserUuid(string $userUuid): bool
-    // {
-    //     $query = $this->queryFactory->newSelect('users');
-    //     $query->select('uuid')->where(['uuid' => $userUuid]);
-
-    //     return (bool) $query->execute()->fetch('assoc');
-    // }    
-
-
     public function deleteUserById(int $userId): void
     {
         $this->queryFactory->newDelete('users')
@@ -115,7 +101,7 @@ final class UserRepository
     private function toRow(array $user): array
     {
         return [
-            // 'uuid'  => $user['uuid'],
+            'uuid'  => $user['uuid'],
             'email' => $user['email'],
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],

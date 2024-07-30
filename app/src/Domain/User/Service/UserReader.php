@@ -33,13 +33,13 @@ final class UserReader
      *
      * @return UserReaderResult The result
      */
-    public function getUser(string $userId): UserReaderResult
+    public function getUser(string $userUuid): UserReaderResult
     {
         // Input validation
-        $this->validateUserRead($userId);
+        $this->validateUserRead($userUuid);
 
         // // Map UUID to ID
-        // $userId = $this->repository->mapUuidToId($userUuid);
+        $userId = $this->repository->mapUuidToId($userUuid);
 
         // Fetch data from the database
         $userRow = $this->repository->getUserById($userId);
@@ -50,7 +50,7 @@ final class UserReader
         // Create domain result
         $result = new UserReaderResult();
         $result->id = $userRow['id'];
-        // $result->uuid = $userRow['uuid'];
+        $result->uuid = $userRow['uuid'];
         $result->email = $userRow['email'];
         $result->firstname = $userRow['firstname'];
         $result->lastname = $userRow['lastname'];
@@ -63,14 +63,14 @@ final class UserReader
         return $result;
     }
 
-    public function validateUserRead(string $userId) {
+    public function validateUserRead(string $userUuid) {
 
-        // if( !Uuid::isValid($userUuid)) {
-        //     throw new DomainException(sprintf('UUID not valid: %s', $userUuid));
-        // }
-
-        if (!$this->repository->existsUserId($userId)) {
-            throw new DomainException(sprintf('User not found: %s', $userId));
+        if( !Uuid::isValid($userUuid)) {
+            throw new DomainException(sprintf('UUID not valid: %s', $userUuid));
         }
+
+        // if (!$this->repository->existsUserId($userId)) {
+        //     throw new DomainException(sprintf('User not found: %s', $userId));
+        // }
     }
 }

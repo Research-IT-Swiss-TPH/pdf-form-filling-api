@@ -19,7 +19,7 @@ class UserSeeder extends AbstractSeed
     {
         $data = [
             [
-                // 'uuid'          => '6f1c4713-18e3-4aa6-92be-eb9b495c0dc9',
+                'uuid'          => '6f1c4713-18e3-4aa6-92be-eb9b495c0dc9',
                 'email'         => 'alice@foo.bar',
                 'firstname'     => 'Alice',
                 'lastname'      => 'Ecila',
@@ -27,7 +27,7 @@ class UserSeeder extends AbstractSeed
                 'role'          => 'ROLE_ADMIN',
                 'organisation'  => 'Alice Organisation',
             ],[
-                // 'uuid'          =>  Uuid::v4(),
+                'uuid'          =>  Uuid::v4(),
                 'email'         => 'bob@foo.bar',
                 'firstname'     => 'Bob',
                 'lastname'      => 'Obo',
@@ -35,7 +35,7 @@ class UserSeeder extends AbstractSeed
                 'role'          => 'ROLE_INTERNAL',
                 'organisation'  => 'Bob Organisation',
             ],[
-                // 'uuid'          =>  Uuid::v4(),
+                'uuid'          =>  Uuid::v4(),
                 'email'         => 'carl@foo.bar',
                 'firstname'     => 'Carl',
                 'lastname'      => 'Larc',

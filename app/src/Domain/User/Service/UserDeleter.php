@@ -4,6 +4,7 @@ namespace App\Domain\User\Service;
 
 use App\Domain\User\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
 use DomainException;
 
 final class UserDeleter
@@ -19,22 +20,22 @@ final class UserDeleter
         $this->logger = $logger;
     }
 
-    public function deleteUser(string $userId): void
+    public function deleteUser(string $userUuid): void
     {
-        $this->validateUserDelete($userId);
+        $this->validateUserDelete($userUuid);
 
-        // $userId = $this->repository->mapUuidToId($userUuid);
+        $userId = $this->repository->mapUuidToId($userUuid);
 
         $this->repository->deleteUserById($userId);
 
-        $this->logger->info(sprintf('User deleted successfully: %s', $userId));
+        $this->logger->info(sprintf('User deleted successfully: %s', $userUuid));
 
     }
 
-    public function validateUserDelete(string $userId): void 
+    public function validateUserDelete(string $userUuid): void 
     {
-        if(!$this->repository->existsUserId($userId)) {
-            throw new DomainException(sprintf('User not found: %s', $userId));
+        if( !Uuid::isValid($userUuid)) {
+            throw new DomainException(sprintf('UUID not valid: %s', $userUuid));
         }
     }
 }

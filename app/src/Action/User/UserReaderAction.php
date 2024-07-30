@@ -26,10 +26,10 @@ final class UserReaderAction
         array $args
     ): ResponseInterface {
         // Fetch parameters from the request
-        $userId = (string) $args['user_id'];
+        $userUuid = (string) $args['user_uuid'];
 
         // Invoke the domain and get the result
-        $user = $this->userReader->getUser($userId);
+        $user = $this->userReader->getUser($userUuid);
 
         // Transform result and render to json
         return $this->renderer->json($response, $this->transform($user));
@@ -39,7 +39,7 @@ final class UserReaderAction
     {
         return [
 					'id' => $user->id,
-                    // 'uuid' => $user->uuid,
+                    'uuid' => $user->uuid,
 					'email' => $user->email,
 					'firstname' => $user->firstname,
 					'lastname' => $user->lastname,
